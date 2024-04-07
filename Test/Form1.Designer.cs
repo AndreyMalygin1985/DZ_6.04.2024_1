@@ -187,10 +187,10 @@
             toPayFuel2.BorderStyle = BorderStyle.None;
             toPayFuel2.Enabled = false;
             toPayFuel2.Font = new Font("Times New Roman", 36F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            toPayFuel2.Location = new Point(80, 3);
+            toPayFuel2.Location = new Point(49, 3);
             toPayFuel2.Name = "toPayFuel2";
             toPayFuel2.RightToLeft = RightToLeft.Yes;
-            toPayFuel2.Size = new Size(214, 56);
+            toPayFuel2.Size = new Size(245, 56);
             toPayFuel2.TabIndex = 0;
             toPayFuel2.TextChanged += toPayFuel2_TextChanged;
             // 
@@ -483,10 +483,10 @@
             toPayCafe2.Enabled = false;
             toPayCafe2.Font = new Font("Times New Roman", 36F, FontStyle.Bold, GraphicsUnit.Point, 204);
             toPayCafe2.ForeColor = SystemColors.InfoText;
-            toPayCafe2.Location = new Point(146, 3);
+            toPayCafe2.Location = new Point(78, 3);
             toPayCafe2.Name = "toPayCafe2";
             toPayCafe2.RightToLeft = RightToLeft.Yes;
-            toPayCafe2.Size = new Size(146, 56);
+            toPayCafe2.Size = new Size(214, 56);
             toPayCafe2.TabIndex = 1;
             toPayCafe2.TextChanged += toPayCafe2_TextChanged;
             // 
@@ -516,11 +516,11 @@
             toPayAll.BackColor = SystemColors.ButtonFace;
             toPayAll.BorderStyle = BorderStyle.None;
             toPayAll.Font = new Font("Times New Roman", 54.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            toPayAll.Location = new Point(439, 7);
+            toPayAll.Location = new Point(313, 7);
             toPayAll.Name = "toPayAll";
-            toPayAll.Size = new Size(257, 84);
+            toPayAll.RightToLeft = RightToLeft.Yes;
+            toPayAll.Size = new Size(383, 84);
             toPayAll.TabIndex = 1;
-            toPayAll.TextChanged += toPayAll_TextChanged;
             // 
             // totalSum
             // 
