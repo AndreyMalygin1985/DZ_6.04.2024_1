@@ -11,8 +11,7 @@ namespace Test
             FillFuelTypes();
             //priceRubLit.Leave += PriceRubLit_Leave;                       
             /* priceRubLit.Enabled = false;*/
-
-            priceRubLit.TextChanged += priceRubLit_TextChanged;
+            //priceRubLit.TextChanged += priceRubLit_TextChanged;
             HotDogQuantity.Enabled = false;
             HamburgerQuantity.Enabled = false;
             FrenchFriesQuantity.Enabled = false;
@@ -23,8 +22,6 @@ namespace Test
             FrenchFriesQuantity.TextChanged += toPayCafe2_TextChanged;
             ShawermaQuantity.TextChanged += toPayCafe2_TextChanged;
             TeaQuantity.TextChanged += toPayCafe2_TextChanged;
-            //Quantity.Checked = true;
-            //Quantity_CheckedChanged(null, EventArgs.Empty);
 
         }
         private Dictionary<string, decimal> fuelTypes = new Dictionary<string, decimal>
@@ -88,7 +85,8 @@ namespace Test
 
 
         private void priceRubLit_TextChanged(object sender, EventArgs e) // стоимость литра
-        {// Получить выбранное топливо из comboBox
+        {
+            // Получить выбранное топливо из comboBox
             string selectedFuelType = comboBox_gasoline.Text;
 
             if (fuelTypes.ContainsKey(selectedFuelType))
@@ -103,7 +101,6 @@ namespace Test
                 // Обработка некорректного выбора топлива
                 priceRubLit.Text = "Ошибка ввода";
             }
-
         }
 
         private void Quantity_CheckedChanged(object sender, EventArgs e) // выбор по литрам
@@ -111,6 +108,8 @@ namespace Test
             QuantityLiter.Enabled = Quantity.Checked;
             if (AmountRuble.Enabled = !Quantity.Checked)
             {
+                ruble2.Text = "лит.";
+                toPayFuel.Text = "К выдаче:";
                 QuantityLiter.Clear();
             }
             CalculateTotalCost();
@@ -123,8 +122,10 @@ namespace Test
         private void Amount_CheckedChanged(object sender, EventArgs e) // выбор по сумме
         {
             AmountRuble.Enabled = Amount.Checked;
-            if (QuantityLiter.Enabled = !Amount.Checked) 
+            if (QuantityLiter.Enabled = !Amount.Checked)
             {
+                ruble2.Text = "руб.";
+                toPayFuel.Text = "К оплате:";
                 AmountRuble.Clear();
             }
             CalculateTotalCost();
@@ -136,7 +137,6 @@ namespace Test
         }
         private void toPayFuel2_TextChanged(object sender, EventArgs e)
         {
-
             // Получить выбранное топливо из comboBox
             string selectedFuelType = comboBox_gasoline.Text;
             if (fuelTypes.ContainsKey(selectedFuelType))
@@ -151,29 +151,8 @@ namespace Test
 
                     // Выводим количество литров в textBox
                     toPayFuel2.Text = liters.ToString("F2");
-                    // Изменяем текст в лэйбле ruble2 на "лит."
-                    ruble2.Text = "лит.";
-                }
-
-                else
-                {                   
-                    ruble2.Text = "руб.";
                 }
             }
-            /*else
-            {
-                // Обработка некорректного выбора топлива
-                toPayFuel2.Text = "Ошибка ввода";
-
-                // Изменяем текст в лэйбле ruble2 на "руб."
-                ruble2.Text = "руб.";
-            }*/
-
-            /*else
-            {
-                // Обработка некорректного ввода
-                toPayFuel2.Text = "Ошибка ввода";
-            }*/
         }
         private void HotDog_CheckedChanged(object sender, EventArgs e)
         {
@@ -256,6 +235,75 @@ namespace Test
         private void toPayAll_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private async void totalSum_Click(object sender, EventArgs e)
+        {
+            decimal toPayCafe = decimal.Parse(toPayCafe2.Text);
+            decimal totalAmount = toPayCafe;
+
+            if (Quantity.Checked)
+            {
+                string selectedFuelType = comboBox_gasoline.Text;
+                if (fuelTypes.ContainsKey(selectedFuelType))
+                {
+                    decimal pricePerLiter = fuelTypes[selectedFuelType];
+                    decimal liters = decimal.Parse(QuantityLiter.Text);
+                    totalAmount += pricePerLiter * liters;
+                }
+            }
+            else
+            {
+                decimal gasAmount = decimal.Parse(AmountRuble.Text);
+                totalAmount += gasAmount;
+            }
+
+            toPayAll.Text = totalAmount.ToString();
+
+            await Task.Delay(5000); // Ждем 10 секунд
+
+            // Показываем диалоговое окно с запросом на очистку формы
+            var result = MessageBox.Show("Очистить форму для следующего клиента?", "Запрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Очистка полей формы
+                toPayFuel2.Text = "";
+                toPayCafe2.Text = "";               
+                Quantity.Checked = false;
+                Amount.Checked = false;
+                QuantityLiter.Text = "";
+                AmountRuble.Text = "";
+                toPayAll.Text = "";
+                // Другие поля, если необходимо
+            }
+            else
+            {
+                // Ждем еще 10 секунд перед следующим запросом на очистку формы
+                await Task.Delay(10000);
+            }
+            /*decimal toPayCafe = decimal.Parse(toPayCafe2.Text);
+            decimal totalAmount = toPayCafe;
+
+            // Проверяем, выбран ли способ оплаты "по литрам"
+            if (Quantity.Checked)
+            {
+                // Получаем выбранный вид топлива и цену за литр
+                string selectedFuelType = comboBox_gasoline.Text;
+                if (fuelTypes.ContainsKey(selectedFuelType))
+                {
+                    decimal pricePerLiter = fuelTypes[selectedFuelType];
+                    decimal liters = decimal.Parse(QuantityLiter.Text);
+                    totalAmount += pricePerLiter * liters;
+                }
+            }
+            else // Способ оплаты "по деньгам"
+            {
+                decimal gasAmount = decimal.Parse(AmountRuble.Text);
+                totalAmount += gasAmount;
+            }
+
+            toPayAll.Text = totalAmount.ToString("F2");*/
         }
     }
 }

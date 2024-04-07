@@ -70,7 +70,7 @@
             panel3 = new Panel();
             ruble4 = new Label();
             toPayAll = new TextBox();
-            button1 = new Button();
+            totalSum = new Button();
             GasStation = new Label();
             Cafe = new Label();
             panel1.SuspendLayout();
@@ -495,7 +495,7 @@
             panel3.BorderStyle = BorderStyle.Fixed3D;
             panel3.Controls.Add(ruble4);
             panel3.Controls.Add(toPayAll);
-            panel3.Controls.Add(button1);
+            panel3.Controls.Add(totalSum);
             panel3.Location = new Point(12, 338);
             panel3.Name = "panel3";
             panel3.Size = new Size(776, 100);
@@ -522,16 +522,17 @@
             toPayAll.TabIndex = 1;
             toPayAll.TextChanged += toPayAll_TextChanged;
             // 
-            // button1
+            // totalSum
             // 
-            button1.BackColor = SystemColors.ActiveBorder;
-            button1.Font = new Font("Times New Roman", 30F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            button1.Location = new Point(15, 10);
-            button1.Name = "button1";
-            button1.Size = new Size(152, 81);
-            button1.TabIndex = 0;
-            button1.Text = "ИТОГ";
-            button1.UseVisualStyleBackColor = false;
+            totalSum.BackColor = SystemColors.ActiveBorder;
+            totalSum.Font = new Font("Times New Roman", 30F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            totalSum.Location = new Point(15, 10);
+            totalSum.Name = "totalSum";
+            totalSum.Size = new Size(152, 81);
+            totalSum.TabIndex = 0;
+            totalSum.Text = "ИТОГ";
+            totalSum.UseVisualStyleBackColor = false;
+            totalSum.Click += totalSum_Click;
             // 
             // GasStation
             // 
@@ -599,7 +600,7 @@
         private Label toPayCafe;
         private Label Quantity2;
         private Label price2;
-        private Button button1;
+        private Button totalSum;
         private ComboBox comboBox_gasoline;
         private CheckBox HotDog;
         private TextBox TeaQuantity;
