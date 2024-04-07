@@ -88,14 +88,31 @@ namespace Test
 
 
         private void priceRubLit_TextChanged(object sender, EventArgs e) // стоимость литра
-        {
+        {// Получить выбранное топливо из comboBox
+            string selectedFuelType = comboBox_gasoline.Text;
+
+            if (fuelTypes.ContainsKey(selectedFuelType))
+            {
+                decimal pricePerLiter = fuelTypes[selectedFuelType];
+
+                // Выводим цену за литр в textBox priceRubLit
+                priceRubLit.Text = pricePerLiter.ToString("F2");
+            }
+            else
+            {
+                // Обработка некорректного выбора топлива
+                priceRubLit.Text = "Ошибка ввода";
+            }
 
         }
 
         private void Quantity_CheckedChanged(object sender, EventArgs e) // выбор по литрам
         {
             QuantityLiter.Enabled = Quantity.Checked;
-            AmountRuble.Enabled = !Quantity.Checked;
+            if (AmountRuble.Enabled = !Quantity.Checked)
+            {
+                QuantityLiter.Clear();
+            }
             CalculateTotalCost();
         }
         private void QuantityLiter_TextChanged(object sender, EventArgs e) // ввод колва литров
@@ -106,36 +123,16 @@ namespace Test
         private void Amount_CheckedChanged(object sender, EventArgs e) // выбор по сумме
         {
             AmountRuble.Enabled = Amount.Checked;
-            QuantityLiter.Enabled = !Amount.Checked;
+            if (QuantityLiter.Enabled = !Amount.Checked) 
+            {
+                AmountRuble.Clear();
+            }
             CalculateTotalCost();
         }
 
         private void AmountRuble_TextChanged(object sender, EventArgs e) // ввод по деньгам
         {
             CalculateTotalCost();
-            /*// Получаем выбранный тип топлива
-            string selectedFuelType = comboBox_gasoline.Text;
-
-            // Проверяем, есть ли такой тип в словаре
-            if (fuelTypes.ContainsKey(selectedFuelType))
-            {
-                decimal pricePerLiter = fuelTypes[selectedFuelType];
-
-                // Проверяем, есть ли непустая сумма в AmountRuble textBox
-                if (decimal.TryParse(AmountRuble.Text, out decimal amount) && amount > 0)
-                {
-                    // Вычисляем количество литров путем деления суммы на новую цену за литр
-                    decimal liters = amount / pricePerLiter;
-
-                    // Выводим количество литров в textBox
-                    QuantityLiter.Text = liters.ToString();
-                }
-            }
-            else
-            {
-                // Если выбран неизвестный тип топлива, очищаем поле
-                QuantityLiter.Clear();
-            }*/
         }
         private void toPayFuel2_TextChanged(object sender, EventArgs e)
         {
